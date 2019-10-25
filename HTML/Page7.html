@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+		<meta name = "Version Seven" content = "width=device-width, initial-scale=1.0">
+		<style>
+			body{
+				 background-image:url('arctic.jpeg'); 
+				 background-size:cover;
+				 background-repeat: no-repeat;
+				 background-attachment: fixed;
+
+			} h1 {
+				color:white;
+				font-family: courier;
+				font-size: 20px;
+			} p {
+				font-family: courier;
+				color:white;
+				font-size: 15px ;
+
+			} p.buttonHolder {
+				color:white;
+				width = window.innerWidth;
+				padding: 5px 5px;
+				font-size:25px;
+				text-align:center;
+
+			} p.logoHolder {
+				text-align: center;
+				background-color: none;
+				border: none;
+
+			} a.buttons {
+				color:white;
+				background-color: rgba(150,25,150,0.4);
+				text-align: center;
+				border:3px solid white;
+				padding: 0px 3px;
+				margin:5px;
+			} div.content {
+				border:2px solid black;
+				background-color:hsla(231, 61%, 75%,0.7); ;
+			}
+		</style>
+		<div style = "background-color:hsla(231, 61%, 75%,0.7) ; background-size:cover">
+			<p class = "logoHolder">
+				<a href = "Page5.html"> <img src = "Logo.png" width = "100px" height = "100px" > </a>
+			</p>
+			<p class = "buttonHolder"> 
+				<a class = "buttons" href= "Page1.html"> Page One </a>
+				<a class = "buttons" href= "Page2.html"> Page Two </a>
+				<a class = "buttons" href= "Page3.html"> Page Three </a>
+				<a class = "buttons" href= "Page4.html"> Page Four </a>
+				<a class = "buttons" href = "Page5.html"> Page Five </a>
+				<a class = "buttons" href = "Page6.html"> Page Six </a>
+				<a class = "buttons" href = "Page7.html"> Page Seven </a>
+				<a class = "buttons" href = "Page8.html"> Page Eight </a>
+				<br>
+			</p>
+		</div>
+	</head>
+
+	<body>
+		<div class = "content">
+			<h1> This is one option for background images. </h1>
+		</div>
+
+		<div class = "content">
+			<p> The way this main background is setup is by using the following properties:
+				<ul style = "color:white">
+					<li> background-image: url('arctic.jpeg') </li>
+					<li> background-repeat: no-repeat; </li>
+					<li> background-attachment: fixed; </li>
+					<li> background-size: cover; </li>
+				</ul>
+
+			Ut id magna tristique, finibus ipsum eu, fermentum mauris. Sed tincidunt mauris in metus maximus luctus. Donec metus mauris, luctus vitae rutrum in, vestibulum ac tortor. Donec quis ipsum pretium, iaculis augue et, porta justo. Praesent eleifend pharetra est. Nullam ac ornare nisl. Sed at metus a libero interdum gravida. Ut laoreet mollis viverra. Fusce iaculis efficitur nisi et imperdiet. Mauris quis dolor odio. Maecenas gravida arcu ac ligula luctus, at imperdiet ipsum scelerisque. Etiam a velit ac arcu malesuada tristique. Donec maximus ante non leo interdum, sit amet lacinia augue ultrices. Vivamus id tellus ante. Nam feugiat neque iaculis augue porttitor euismod. Maecenas non quam nunc.
+
+			Aliquam eget eros congue, congue orci a, sagittis libero. Etiam orci dolor, placerat non rhoncus sed, fermentum et nibh. Nullam mollis lectus leo. Mauris ac vulputate tellus. Fusce commodo finibus eleifend. Nullam sit amet nibh varius, placerat massa eget, ornare augue. Sed ornare metus ac diam faucibus suscipit. </p>
+		</div>
+
+		<br>
+
+		<div class = "content">
+			<h1> Using the <'head' tag, I have also thrown the buttons into the header </h1>
+			<p  style = "color:black"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque urna nisi, blandit nec felis sit amet, condimentum ullamcorper augue. Etiam hendrerit enim eget sapien maximus ornare. Fusce imperdiet porttitor faucibus. Vivamus finibus ipsum eget tempor rutrum. Ut pretium orci libero, a porta arcu pharetra a. Duis ut placerat neque, et eleifend sem. Nunc a ullamcorper neque. Vivamus ipsum lacus, dictum nec nibh condimentum, iaculis viverra massa. Vestibulum varius dui et augue fringilla congue. Aliquam a quam faucibus elit tincidunt dignissim. Cras quis nibh congue, interdum libero id, malesuada neque. Phasellus ornare posuere euismod. Proin scelerisque nibh eget odio dictum luctus. Fusce suscipit mattis commodo. Vestibulum vestibulum dolor augue, eu rutrum odio malesuada at. </p>
+		</div>
+
+		<br>
+
+		<div>  
+			<h1> You can have resizable Images aswell... </h1>
+			<p> this is don by declaring a <'picture'> tag. you would then add the different images as such: 
+				<ul style = "color:white">
+					<li> <'souce' media="(min-width: 650px)" srcset="lake1.jpeg"> </li>
+					<li> <'souce' media="(min-width: 465px)" srcset="lake2.jpeg"> </li>
+					<li> <'img' src = "lake3.jpeg"> </li>
+				</ul>
+			</p>
+			<picture>
+				<source media="(min-width: 800px)" srcset="heart5.png" style = "width:100px"> </
+				<source media="(min-width: 750px)" srcset="heart4.png" style = "width:100px">
+				<source media="(min-width: 500px)" srcset="heart3.png" style = "width:100px">
+				<source media="(min-width: 250px)" srcset="heart2.png" style = "width:100px">
+				<img src = "heart1.png" style="width:auto;" style = "width:100px">
+			</picture>
+
+		</div>
+
+
+	</body>
+</html>

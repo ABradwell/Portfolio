@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style>
+			h1 {
+				color:white;
+				font-family: monospace;
+			} p {
+				font-family: sans-serif;
+				color:white;
+				font-size: 20px ;
+				color: black;
+			} p.buttonHolder {
+				color:black;
+				width = window.innerWidth;
+				padding: 5px 5px;
+				font-size:25px;
+				text-align:center;
+
+			} p.logoHolder {
+				text-align: center;
+				background-color: none;
+				border: none;
+
+			} a.buttons {
+				color:white;
+				background-color: black;
+				text-align: center;
+				border:3px solid white;
+				padding: 0px 3px;
+				margin:5px;
+
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- TOP MENU -->
+		<p class = "logoHolder">
+			<a href = "Page5.html"> <img src = "Logo.png" width = "100px" height = "100px" > </a>  
+		</p>
+
+		<p class = "buttonHolder"> 
+			<a class = "buttons" href= "Page1.html"> Page One </a>
+			<a class = "buttons" href= "Page2.html"> Page Two </a>
+			<a class = "buttons" href= "Page3.html"> Page Three </a>
+			<a class = "buttons" href= "Page4.html"> Page Four </a>
+			<a class = "buttons" href = "Page5.html"> Page Five </a>
+			<a class = "buttons" href = "Page6.html"> Page Six </a>
+		</p>
+		<!-- First Photomap -->
+		<img src= "goat.jpeg" alt="Goat!" usemap="#firstmap">
+		<map name="firstmap">
+			<area shape="rect" coords = "43,44,270,350" alt = "Goat" href = "https://en.wikipedia.org/wiki/Goat" target = "_blank">
+			<area shape="circle" coords= "515,200,44" alt="Grass" href = "https://en.wikipedia.org/wiki/Poaceae" target = "_blank" >
+			<area shape="circle" coords = "750,650,50" alt = "Page 6" href = "Page6.html" target = "_blank"> </map>
+	<hr>
+		<h1> You are able to add clickable-regions </h1>
+		<p>
+			Use the following pattern:
+			<ul>
+				<li> Add usemap = "#tag" in the <'img'> tag </li>
+				<li> Declare <'map' name="tag"> </li>
+				<li> Within this tag, add the regions using <'area' shape = "circle/rect/poly/default" coords= "points" href = "link" </li>
+				<li> You can add many of these </li>
+			</ul>
+		</p>
+
+	</body>
+</html>
