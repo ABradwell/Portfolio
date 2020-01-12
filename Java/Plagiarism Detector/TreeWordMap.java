@@ -1,11 +1,18 @@
 /**
  * A Binary Search Tree implementation of the interface WordMap.
  *
- * @author Marcel Turcotte (marcel.turcotte@uottawa.ca)
+ * @author Aiden Stevenson Bradwell, University of Ottawa
+ * Based off of the outline of professor Marcel Turcotte (marcel.turcotte@uottawa.ca)
  */
+
 
 public class TreeWordMap implements WordMap {
 
+
+    /**
+     *
+     * @author  Marcel Turcotte (marcel.turcotte@uottawa.ca)
+     */
     private static class Elem {
 
         private String key;
@@ -107,7 +114,7 @@ public class TreeWordMap implements WordMap {
                     }else{ // check next left below node
                         current = current.left;
                     }
-                }else{ // Going t the right branch of ndoe
+                }else{ // Going to the right branch of node
                     if(current.right == null){ // In case contains ran wrong
                         current.right = new Elem(key);
                         size++;

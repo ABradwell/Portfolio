@@ -23,13 +23,6 @@ public class StudentInfo {
         System.out.println("************************************************************");
         System.out.println();
 
-
-        //
-        //
-        //
-        //
-        //
-        //
     }
 
 }

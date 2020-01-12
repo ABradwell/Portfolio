@@ -1,3 +1,6 @@
+#Aiden Bradwell
+#June 2018
+
 #######IMPORTING PACKAGES##############
 from graphics import *
 from random import *

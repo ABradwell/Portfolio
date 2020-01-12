@@ -17,7 +17,7 @@ def common (landconnect):
     if landconnect == 0:
         #Set odds of initial land
         a=250
-        b =500
+        b =980
         c = 750
         #set floor type // color
         if  currentcolor > 1 and currentcolor <= a:
@@ -37,8 +37,8 @@ def common (landconnect):
         #Situation 2, there is already land assigned
     elif landconnect == 1:
         #set odds of grounded continuation
-        a =600
-        b =980
+        a =400
+        b = 980
         c = 1000
         #set floor type // color
         if  currentcolor> 1 and currentcolor <= a:
@@ -55,8 +55,8 @@ def common (landconnect):
         #Situation 3, there is already water assigned
     elif landconnect == 2:
         #set odds of wet continuation
-        a =600
-        b =750
+        a =400
+        b =900
         c = 1000
         #set floor type // color
         if  currentcolor> 1 and currentcolor <= a:
@@ -164,7 +164,6 @@ def desiredcalculations (positiongrid, colorgrid, visuals, size, currentx, curre
     #currenty - top of square location
     #currenty - bottom of sqaure location
     #calculate which cube they are entering
-    print (direc)
     if direc == 'up' :
         #Desired begins
         dw1 = int(currenty)
@@ -232,11 +231,26 @@ def currentposition(positiongrid, colorgrid, visuals, size, creature):
     currenty = creature.getAnchor() .getY()//cubeheight
     return currentx, currenty
 
+def shortcutone(proposeddirection,positiongrid, colorgrid, visuals, size, creature, cubewidth):
+                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
+                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty, proposeddirection)
+                    if proposeddirection == 'right':
+                        moveright(visuals,creature, groundtype, cubewidth)
+                    elif proposeddirection == 'up':
+                        moveup(visuals,creature, groundtype, cubewidth)
+                    elif proposeddirection == 'down':
+                        movedown(visuals,creature, groundtype, cubewidth)
+                    else :
+                        moveleft(visuals,creature, groundtype, cubewidth)
+
+
 def animalspawn (positiongrid, colorgrid, visuals, size):
+    print (size)
     animalcolor = 'darkred'
     animalsize = visuals.getWidth()/size
     arraylength = size//2
     arrayheight = size//2
+    
     spawnattempt = False
     while spawnattempt == False :
         #choose coords
@@ -246,7 +260,15 @@ def animalspawn (positiongrid, colorgrid, visuals, size):
         locationx = 0
         #actual creature creation
         imagepoint = Point((randx +(randx + animalsize)//2), (randy + (randy + animalsize)//2))
-        creature = Image( imagepoint,"animal.png.png")
+        if  size == 25:
+            creature = Image( imagepoint,"Resources/doggo40.png")
+        elif size == 50:
+            creature = Image( imagepoint,"Resources/doggo20.png")
+        elif size == 75:
+            creature = Image( imagepoint,"Resources/doggo13.png")
+        else:
+            creature = Image( imagepoint,"Resources/doggo10.png")
+        
         #Make sure not in water
         spawnattempt = waterspawntest(size, visuals,creature,colorgrid)
     #Draw
@@ -258,7 +280,7 @@ def animalspawn (positiongrid, colorgrid, visuals, size):
     cubey = int(randy //cubeheight)
     compplace = int(( cubey * size ) + cubex)
     #speed of creature
-    fps =45
+    fps =70
     #begin life
     moveinstruction = randint(1, 100)
     #intial direction
@@ -273,7 +295,7 @@ def animalspawn (positiongrid, colorgrid, visuals, size):
             direction = 'down'
         elif moveinstruction >75 and moveinstruction <= 100:
             direction = 'right'
-        a = 40
+        a = 50
         b =  75
         run = True
         while run == True:
@@ -284,89 +306,48 @@ def animalspawn (positiongrid, colorgrid, visuals, size):
                 #continue
                 if moveinstruction >1 and moveinstruction <= a :
                     #calculate current position
-                    proposeddirection = 'up'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveup(visuals,creature, groundtype, cubeheight)
-
+                    shortcutone('up',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Left
                 elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'left'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveleft(visuals,creature, groundtype, cubewidth)
-
+                    shortcutone('left',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Right
                 elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'right'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveright(visuals,creature, groundtype, cubewidth)
-
+                    shortcutone('right',positiongrid, colorgrid, visuals, size, creature, cubewidth)
            # If already moving right
             elif direction =='right':
                 moveinstruction = randint(1, 100)
                 #continue
                 if moveinstruction >1 and moveinstruction <= a :
-                    proposeddirection = 'right'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveright(visuals,creature, groundtype, cubewidth)
+                    shortcutone('right',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Left
                 elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'up'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveup(visuals,creature, groundtype, cubeheight)
+                    shortcutone('up',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Right
                 elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'down'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    movedown(visuals,creature, groundtype, cubeheight)
-
+                    shortcutone('down',positiongrid, colorgrid, visuals, size, creature, cubewidth)
             #If already moving downwards
             elif direction =='down':
                 moveinstruction = randint(1, 100)
                #continue
                 if moveinstruction >1 and moveinstruction <= a :
-                    proposeddirection = 'down'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    movedown(visuals,creature, groundtype, cubeheight)
+                    shortcutone('down',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Left
                 elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'right'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveright(visuals,creature, groundtype, cubewidth)
+                    shortcutone('right',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Right
                 elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'left'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveleft(visuals,creature, groundtype, cubewidth)
-
+                    shortcutone('left',positiongrid, colorgrid, visuals, size, creature, cubewidth)
             #If already moving left
             elif direction =='left':
                 moveinstruction = randint(1, 100)
                 if moveinstruction >1 and moveinstruction <= a :
-                    proposeddirection = 'left'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveleft(visuals,creature, groundtype, cubewidth)
+                    shortcutone('left',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Left
                 elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'down'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    movedown(visuals,creature, groundtype, cubeheight)
+                    shortcutone('down',positiongrid, colorgrid, visuals, size, creature, cubewidth)
                 #Right
                 elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'up'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveup(visuals,creature, groundtype, cubeheight)
+                    shortcutone('up',positiongrid, colorgrid, visuals, size, creature, cubewidth)
 
 def mainmenu():
     #Main Menu System
@@ -380,6 +361,7 @@ def mainmenu():
         visuals.setBackground('black')
         title = 'Main Menu'
         rect = titleprint(visuals, title)
+        #set what buttons do
         def functionone()  :
             size = 25
             positiongrid, colorgrid = mapprint(visuals, size)
@@ -404,7 +386,7 @@ def mainmenu():
             size = 250
             positiongrid, colorgrid = mapprint(visuals, size)
             animal = animalspawn(positiongrid, colorgrid, visuals, size)
-
+    #Print Menu
         printclickablemenu(visuals, 'Create New Map (25 X 25)','Create New Map (50 X 50)','Create New Map (75 X 75)','Create New Map (100 X 100)','Create New Map (200 X  200)','Create New Map (250 X 250)',title ,rect, functionone,functiontwo,functionthree,functionfour,functionfive,functionsix, menu )
 
 def printclickablemenu(win, menone,mentwo,menthree,menfour,menfive,mensix, currentprogram,rect,  functionone,functiontwo,functionthree,functionfour,functionfive,functionsix, menu):
@@ -537,9 +519,19 @@ def waterspawntest(size, visuals, creature, colorgrid):
 
 
 
+
+def newfucntion( number, word, boolean):
+    print (number)
+    print(boolean)
+    print(word)
+    number = number + 32
+   
+
+
 ###############################
     #MAIN CODE#
 ###############################
+
 
 mainmenu()
 

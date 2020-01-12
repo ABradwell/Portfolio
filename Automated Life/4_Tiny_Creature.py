@@ -5,9 +5,8 @@ from itertools import product
 import os
 import time
 import time
-from multiprocessing import Pool
-from multiprocessing import Process
-import os
+
+
 
 def common (landconnect):
 
@@ -56,7 +55,7 @@ def common (landconnect):
         #Situation 3, there is already water assigned
     elif landconnect == 2:
         #set odds of wet continuation
-        a =400
+        a =600
         b =750
         c = 1000
         #set floor type // color
@@ -224,153 +223,6 @@ def desiredcalculations (positiongrid, colorgrid, visuals, size, currentx, curre
         run = False
     return run, groundtype
 
-def animalspawn2 (positiongrid, colorgrid, visuals, size):
-    print (size)
-    animalcolor = 'darkred'
-    animalsize = visuals.getWidth()/size
-    arraylength = size//2
-    arrayheight = size//2
-    
-    spawnattempt = False
-    while spawnattempt == False :
-        #choose coords
-        randx = randint(1, visuals.getWidth())
-        randy = randint(1, visuals.getHeight())
-        locationy = 0
-        locationx = 0
-        #actual creature creation
-        imagepoint = Point((randx +(randx + animalsize)//2), (randy + (randy + animalsize)//2))
-        if  size == 25:
-            creature = Image( imagepoint,"doggo40.png")
-        elif size == 50:
-            creature = Image( imagepoint,"doggo20.png")
-        elif size == 75:
-            creature = Image( imagepoint,"doggo13.png")
-        else:
-            creature = Image( imagepoint,"doggo10.png")
-        
-        #Make sure not in water
-        spawnattempt = waterspawntest(size, visuals,creature,colorgrid)
-    #Draw
-    creature.draw(visuals)
-    #movement calculations
-    cubewidth = int(visuals.getWidth()/size)
-    cubeheight = int(visuals.getHeight()/size)
-    cubex = int(randx //cubewidth)
-    cubey = int(randy //cubeheight)
-    compplace = int(( cubey * size ) + cubex)
-    #speed of creature
-    fps =45
-    #begin life
-    moveinstruction = randint(1, 100)
-    #intial direction
-    moverun = True
-    run = True
-    while moverun == True:
-        if moveinstruction >0 and moveinstruction <= 25 :
-            direction = 'up'
-        elif moveinstruction >25 and moveinstruction <= 50:
-            direction = 'left'
-        elif moveinstruction >50 and moveinstruction <= 75:
-            direction = 'down'
-        elif moveinstruction >75 and moveinstruction <= 100:
-            direction = 'right'
-        a = 50
-        b =  75
-        run = True
-        while run == True:
-            time.sleep(.1)
-            #If already moving up
-            if direction == 'up':
-                moveinstruction = randint(1, 100)
-                #continue
-                if moveinstruction >1 and moveinstruction <= a :
-                    #calculate current position
-                    proposeddirection = 'up'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveup(visuals,creature, groundtype, cubeheight)
-
-                #Left
-                elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'left'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveleft(visuals,creature, groundtype, cubewidth)
-
-                #Right
-                elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'right'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveright(visuals,creature, groundtype, cubewidth)
-
-           # If already moving right
-            elif direction =='right':
-                moveinstruction = randint(1, 100)
-                #continue
-                if moveinstruction >1 and moveinstruction <= a :
-                    proposeddirection = 'right'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveright(visuals,creature, groundtype, cubewidth)
-                #Left
-                elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'up'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveup(visuals,creature, groundtype, cubeheight)
-                #Right
-                elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'down'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    movedown(visuals,creature, groundtype, cubeheight)
-
-            #If already moving downwards
-            elif direction =='down':
-                moveinstruction = randint(1, 100)
-               #continue
-                if moveinstruction >1 and moveinstruction <= a :
-                    proposeddirection = 'down'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    movedown(visuals,creature, groundtype, cubeheight)
-                #Left
-                elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'right'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveright(visuals,creature, groundtype, cubewidth)
-                #Right
-                elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'left'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveleft(visuals,creature, groundtype, cubewidth)
-
-            #If already moving left
-            elif direction =='left':
-                moveinstruction = randint(1, 100)
-                if moveinstruction >1 and moveinstruction <= a :
-                    proposeddirection = 'left'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveleft(visuals,creature, groundtype, cubewidth)
-                #Left
-                elif moveinstruction >a and moveinstruction <= b:
-                    proposeddirection = 'down'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    movedown(visuals,creature, groundtype, cubeheight)
-                #Right
-                elif moveinstruction > b and moveinstruction <= 100:
-                    proposeddirection = 'up'
-                    currentx, currenty = currentposition(positiongrid, colorgrid, visuals, size, creature)
-                    run, groundtype = desiredcalculations(positiongrid, colorgrid, visuals, size, currentx, currenty,proposeddirection)
-                    moveup(visuals,creature, groundtype, cubeheight)
-
-
 def currentposition(positiongrid, colorgrid, visuals, size, creature):
     # DATA
     cubewidth = visuals.getWidth()/size
@@ -381,12 +233,10 @@ def currentposition(positiongrid, colorgrid, visuals, size, creature):
     return currentx, currenty
 
 def animalspawn (positiongrid, colorgrid, visuals, size):
-    print (size)
     animalcolor = 'darkred'
     animalsize = visuals.getWidth()/size
     arraylength = size//2
     arrayheight = size//2
-    
     spawnattempt = False
     while spawnattempt == False :
         #choose coords
@@ -396,15 +246,7 @@ def animalspawn (positiongrid, colorgrid, visuals, size):
         locationx = 0
         #actual creature creation
         imagepoint = Point((randx +(randx + animalsize)//2), (randy + (randy + animalsize)//2))
-        if  size == 25:
-            creature = Image( imagepoint,"doggo40.png")
-        elif size == 50:
-            creature = Image( imagepoint,"doggo20.png")
-        elif size == 75:
-            creature = Image( imagepoint,"doggo13.png")
-        else:
-            creature = Image( imagepoint,"doggo10.png")
-        
+        creature = Image( imagepoint,"Resources/animal.png.png")
         #Make sure not in water
         spawnattempt = waterspawntest(size, visuals,creature,colorgrid)
     #Draw
@@ -431,7 +273,7 @@ def animalspawn (positiongrid, colorgrid, visuals, size):
             direction = 'down'
         elif moveinstruction >75 and moveinstruction <= 100:
             direction = 'right'
-        a = 50
+        a = 40
         b =  75
         run = True
         while run == True:
@@ -538,13 +380,9 @@ def mainmenu():
         visuals.setBackground('black')
         title = 'Main Menu'
         rect = titleprint(visuals, title)
-        
-        #set what buttons do
         def functionone()  :
             size = 25
             positiongrid, colorgrid = mapprint(visuals, size)
-            p = Process(target=animalspawn2, args=(positiongrid, colorgrid, visuals, size))
-            p.start()
             animal = animalspawn(positiongrid, colorgrid, visuals, size)
         def functiontwo()  :
             size = 50
@@ -566,7 +404,7 @@ def mainmenu():
             size = 250
             positiongrid, colorgrid = mapprint(visuals, size)
             animal = animalspawn(positiongrid, colorgrid, visuals, size)
-    #Print Menu
+
         printclickablemenu(visuals, 'Create New Map (25 X 25)','Create New Map (50 X 50)','Create New Map (75 X 75)','Create New Map (100 X 100)','Create New Map (200 X  200)','Create New Map (250 X 250)',title ,rect, functionone,functiontwo,functionthree,functionfour,functionfive,functionsix, menu )
 
 def printclickablemenu(win, menone,mentwo,menthree,menfour,menfive,mensix, currentprogram,rect,  functionone,functiontwo,functionthree,functionfour,functionfive,functionsix, menu):

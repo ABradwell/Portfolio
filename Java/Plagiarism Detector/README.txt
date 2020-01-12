@@ -1,10 +1,7 @@
 ﻿Student name: Aiden Stevenson Bradwell
 Student Number: 300064655
 Course Code: ITI1121
-Student name: Winston Barrett-Hogg
-Student Number: 300087985
-Course Code: ITI1121-C
-Lab Section: B-2
+
 Assignment 4
 
 
@@ -32,17 +29,13 @@ By submitting this assignment, I acknowledge:
  of the information, 
 	as well as the nature of the collaboration. 
 
-This archive contains 15 files, which are as follows:
+This archive contains 10 files, which are as follows:
 
 	Main Folder:
 		this file (README.txt),
 		WordReader.java
 		WordMap.java
 		Utils.java
-		TestWordMap.java
-		TestWordReader.java
-		TestJaccard.java
-		TestCosine.java
 		TreeWordMap.java
 		StudentInfo.java
 		Similarity.java
