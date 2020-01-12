@@ -1,4 +1,4 @@
-The graphics for this program are from the Nylon Garphics project,
+The graphics for this program are from the Zelle's Garphics project,
 written by John Zelle for use with the book "Python Programming: An
 Introduction to Computer Science" (Franklin, Beedle & Associates).
 
