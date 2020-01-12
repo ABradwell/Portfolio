@@ -6,3 +6,5 @@ The contents are:
 	Python
 	USE
 	README.txt (This file)
+	Russian Presentation.pdf
+	Technical Report Final.dox
