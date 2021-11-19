@@ -3,21 +3,20 @@ from graphics import *
 import random
 import time
 
+
 def mapupdate(mapp, window, snake, direc):
       mapx = int(snakebody[0].getCenter().getX()//(window.getWidth()/100))
       mapy = int(snakebody[0].getCenter().getY()//(window.getHeight()/100))
       mapp[mapx][mapy] = direc
       return mapp, mapx, mapy
 
-def eaten(mapp, snakebody, food, length,direction, window):
+
+def eaten(mapp, snakebody, food, length, direction, window):
       xypoint = snakebody[0].getCenter()
       head = snakebody[0]
       p2 = head.getP1()
       p1 = head.getP2()
-      #snakebody[0].move(window.getWidth()//100, 0)
-      #snakebody[0].move(-window.getWidth()//100, 0)
-      #snakebody[0].move(0, -window.getHeight()//100)
-      #snakebody[0].move(0, window.getHeight()//100)
+
       if direction == 'l':
             prep1 = snakebody[0].getP1().getX() - window.getWidth()//100
             prep2 = snakebody[0].getP2().getX() - window.getWidth()//100
@@ -126,26 +125,39 @@ def eaten(mapp, snakebody, food, length,direction, window):
       
       return direction, snakebody, foodpoint
 
+
+def cube_overlap(cube1, cube2, xdiff, ydiff):
+
+      next_x = cube1.getCenter().getX() + xdiff
+      next_y = cube1.getCenter().getY() + ydiff
+
+      return cube2.getP1().getX() > next_x > cube2.getP2().getX() and cube2.getP1().getY() > next_y > cube2.getP2().getY()
+
+
 def bodycheck(mapp, direction, snakebody):
       move = True
       for bodypart in snakebody:
             if direction == 'u':
-                  if snakebody[0].getCenter().getY() - window.getHeight()//100 == bodypart.getCenter().getY():
+                  if cube_overlap(snakebody[0], bodypart, 0, -window.getHeight()//100):
+                  # if snakebody[0].getCenter().getY() - window.getHeight()//100 == bodypart.getCenter().getY():
                         move = False
                         direction = 'l'
                         print('MOVE DENIED')
             elif direction =='d':
-                  if snakebody[0].getCenter().getY() + window.getHeight()//100 == bodypart.getCenter().getY():
+                  if cube_overlap(snakebody[0], bodypart, 0, window.getHeight() // 100):
+                  # if snakebody[0].getCenter().getY() + window.getHeight()//100 == bodypart.getCenter().getY():
                         move = False
                         direction = 'r'
                         print('MOVE DENIED')
             elif direction == 'l':
-                  if snakebody[0].getCenter().getX() - window.getWidth()//100 == bodypart.getCenter().getX():
+                  if cube_overlap(snakebody[0], bodypart, -window.getWidth()//100, 0):
+                  #if snakebody[0].getCenter().getX() - window.getWidth()//100 == bodypart.getCenter().getX():
                         move = False
                         direction = 'd'
                         print('MOVE DENIED')
             else:
-                  if snakebody[0].getCenter().getX() + window.getWidth()//100 == bodypart.getCenter().getX():
+                  if cube_overlap(snakebody[0], bodypart, window.getWidth()//100, 0):
+                  #if snakebody[0].getCenter().getX() + window.getWidth()//100 == bodypart.getCenter().getX():
                         move = False
                         direction = 'u'
                         print('MOVE DENIED')
@@ -165,7 +177,7 @@ def bodymove(window, snakebody, direction):
                   if direction == 'l':
                         snakebody[i].move(-window.getWidth()//100, 0)
                   elif direction =='r':
-                        snakebody[i].move(window.getWidth()//100,0)
+                        snakebody[i].move(window.getWidth()//100, 0)
                   elif direction == 'u':
                         snakebody[i].move(0, -window.getHeight()//100)
                   else:
