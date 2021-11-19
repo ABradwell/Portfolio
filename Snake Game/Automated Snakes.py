@@ -139,7 +139,6 @@ def bodycheck(mapp, direction, snakebody):
       for bodypart in snakebody:
             if direction == 'u':
                   if cube_overlap(snakebody[0], bodypart, 0, -window.getHeight()//100):
-                  # if snakebody[0].getCenter().getY() - window.getHeight()//100 == bodypart.getCenter().getY():
                         move = False
                         direction = 'l'
                         print('MOVE DENIED')
